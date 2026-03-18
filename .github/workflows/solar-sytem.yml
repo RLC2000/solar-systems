@@ -3,8 +3,9 @@ name: Solar System Workflow
 on:
     workflow_dispatch:
     push:
-        - main
-        - feature/**
+        branches:
+         - main
+         - feature/**
 jobs:
     unit_test:
         runs-on: ubuntu-latest
