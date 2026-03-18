@@ -30,4 +30,9 @@ jobs:
             
             - name: Run the test file
               run: npm test
-
+            
+            - name: Archive the test results
+              uses: actions/upload-artifacts@v5
+              with:
+                name: Test-Archives
+                path: test-results.xml
