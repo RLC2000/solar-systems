@@ -32,7 +32,7 @@ jobs:
               run: npm test
             
             - name: Archive the test results
-              uses: actions/upload-artifacts@v5
+              uses: actions/upload-artifacts@v4
               with:
                 name: Test-Archives
                 path: test-results.xml
