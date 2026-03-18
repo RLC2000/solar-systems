@@ -13,7 +13,18 @@ env:
 
 jobs:
     unit_test:
-        runs-on: ubuntu-latest
+        stratergy:
+          max-parallel: 2
+          fail-fast: true
+          matrix:
+            os: [ubuntu-latest]
+            node-version: [17,18,19]
+
+            exclude:
+              - os: ubuntu-latest
+                node-version: 19
+
+        runs-on: ${{ matrix.os }}
 
         steps:
 
@@ -23,7 +34,7 @@ jobs:
             - name: Setup NodeJs version - 18   ### IN the virtual machine have NodeJs v18 installed
               uses:  actions/setup-node@v6
               with:
-                node-version: 18
+                node-version: ${{ matrix.node-version }}
             
             - name: Install required depedencies
               run: npm install
