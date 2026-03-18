@@ -47,3 +47,29 @@ jobs:
               with:
                 name: Test-Archives-${{ matrix.node-version}}_${{matrix.os}}
                 path: test-results.xml
+    
+    code-coverage:
+      runs-on: ubuntu-latest
+      timeout-minutes: 10
+      steps:
+         - name: Checkout the repo
+           uses: actions/checkout@v5
+
+         - name: Setup NodeJs version - 18   ### IN the virtual machine have NodeJs v18 installed
+           uses:  actions/setup-node@v6
+           with:
+             node-version: 18
+            
+         - name: Install required depedencies
+           run: npm install
+
+         - name: Check Coverage
+           run: npm run coverage
+
+         - name: Archive the test results
+           uses: actions/upload-artifact@v4
+           with:
+              name: Code_Coverage_Report
+              path: coverage
+              retention-days: 5
+          
