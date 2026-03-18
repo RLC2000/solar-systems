@@ -1,0 +1,26 @@
+name: Solar System Workflow
+
+on:
+    workflow_dispatch:
+    push:
+        - main
+        - feature/**
+jobs:
+    unit_test:
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - name: Checkout the repo
+              uses: actions/checkout@v5
+
+            - name: Setup NodeJs version - 18   ### IN the virtual machine have NodeJs v18 installed
+              uses:  actions/setup-node@v6
+              with:
+                node-version: 18
+            
+            - name: Install required depedencies
+              run: npm install
+            
+            - name: Run the test file
+              run: npm test
