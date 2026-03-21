@@ -15,7 +15,7 @@ jobs:
     get_context:
       env:
        STEP_CONTEXT: ${{ toJson(github) }}
-      runs-on: ${{ matrix.os }}
+      runs-on: ubuntu-latest
       steps:
        
         - name: Print Context
@@ -76,7 +76,7 @@ jobs:
          - name: Check Coverage
            run: npm run coverage
            continue-on-error: true
-           
+
          - name: Archive the test results
            uses: actions/upload-artifact@v4
            with:
