@@ -14,7 +14,7 @@ env:
 jobs:
     get_context:
       env:
-       STEP_CONTEXT: ${{ github }}
+       STEP_CONTEXT: ${{ toJson(github) }}
       runs-on: ${{ matrix.os }}
       steps:
        
@@ -75,6 +75,7 @@ jobs:
 
          - name: Check Coverage
            run: npm run coverage
+           continue-on-error: true
            continue-on-error: true
 
          - name: Archive the test results
