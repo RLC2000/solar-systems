@@ -12,11 +12,10 @@ env:
   MONGO_PASSWORD: SuperPassword ## can also be set from secrets ${{ secrets.MONGO_PASS }}
 
 jobs:
-    env:
-      STEP_CONTEXT: ${{ steps }}
     get_context:
+      env:
+       STEP_CONTEXT: ${{ github }}
       runs-on: ${{ matrix.os }}
-      
       steps:
        
         - name: Print Context
@@ -49,9 +48,11 @@ jobs:
               run: npm install
             
             - name: Run the test file
+              id: run-test-checks
               run: npm test
             
             - name: Archive the test results
+              if: ${{ steps.run-test-checks.outcome == 'failure' }}
               uses: actions/upload-artifact@v4
               with:
                 name: Test-Archives-${{ matrix.node-version}}_${{matrix.os}}
