@@ -12,13 +12,22 @@ env:
   MONGO_PASSWORD: SuperPassword ## can also be set from secrets ${{ secrets.MONGO_PASS }}
 
 jobs:
+    env:
+      STEP_CONTEXT: ${{ steps }}
+    get_context:
+      runs-on: ${{ matrix.os }}
+      
+      steps:
+       
+        - name: Print Context
+          run: echo $STEP_CONTEXT
     unit_test:
         strategy:
           max-parallel: 2
           fail-fast: true
           matrix:
             os: [ubuntu-latest]
-            node-version: [15,17,18,19]
+            node-version: [15]
 
             exclude:
               - os: ubuntu-latest
